@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
@@ -9,7 +11,7 @@
 <body>
 <div class="container mt-5 pt5">
     <h1>Iniciar sesión</h1>
-    <form action="/webapp-headers/login" method="post">
+    <form action="/webapp-cookie/login" method="post">
         <div class="">
             <label for="username">Usuario</label>
             <div>
