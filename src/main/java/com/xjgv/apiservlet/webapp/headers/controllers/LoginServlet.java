@@ -39,6 +39,7 @@ public class LoginServlet extends HttpServlet {
                 out.println("     </head>");
                 out.println("     <body>");
                 out.println("         <h1>Hola" + cookieOptional.get() + " ya has iniciado sesión anteriormente </h1>");
+                out.println("        <a href='" + req.getContextPath() + "/index.html' class='btn btn-primary'>Volver</a> ");
                 out.println("     </body>");
                 out.println("</html>");
             }
@@ -79,6 +80,7 @@ public class LoginServlet extends HttpServlet {
                     out.println("     </head>");
                     out.println("     <body>");
                     out.println("         <h1>" + username + " ha iniciado sesión</h1>");
+                    out.println("        <a href='" + req.getContextPath() + "/index.html' class='btn btn-primary'>Volver</a> ");
                     out.println("     </body>");
                     out.println("</html>");
                 }

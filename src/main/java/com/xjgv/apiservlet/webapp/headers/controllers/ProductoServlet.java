@@ -1,6 +1,8 @@
 package com.xjgv.apiservlet.webapp.headers.controllers;
 
 import com.xjgv.apiservlet.webapp.headers.models.Producto;
+import com.xjgv.apiservlet.webapp.headers.services.LoginService;
+import com.xjgv.apiservlet.webapp.headers.services.LoginServiceImpl;
 import com.xjgv.apiservlet.webapp.headers.services.ProductoService;
 import com.xjgv.apiservlet.webapp.headers.services.ProductoServiceImpl;
 import jakarta.servlet.ServletException;
@@ -24,11 +26,8 @@ public class ProductoServlet extends HttpServlet {
         ProductoService service = new ProductoServiceImpl();
         List<Producto> productos = service.listar();
 
-        Cookie[] cookies = req.getCookies() != null ? req.getCookies() : new Cookie[0];
-        Optional<String> cookieOptional = Arrays.stream(cookies)
-                .filter(c -> "username".equals(c.getName()))
-                .map(Cookie::getValue)
-                .findAny();
+        LoginService auth = new LoginServiceImpl();
+        Optional<String> cookieOptional = auth.getUsername(req);
 
         resp.setContentType("text/html;charset=UTF-8");
 
@@ -45,23 +44,30 @@ public class ProductoServlet extends HttpServlet {
             out.println("     <body>");
             out.println("     <div class='container mt-5'>");
             out.println("         <h1>Listado de productos</h1>");
-
+            if (cookieOptional.isPresent()){
+                out.println("<h2 style='color: teal' class='mb-3'> Bienvenido " + cookieOptional.get() + "</h2>");
+            }
             out.println("         <table class='table table-striped'>");
             out.println("         <tr>");
             out.println("           <th>ID</th>");
             out.println("           <th>Nombre</th>");
             out.println("           <th>Tipo</th>");
-            out.println("           <th>Precio</th>");
+            if (cookieOptional.isPresent()){
+                out.println("           <th>Precio</th>");
+            }
             out.println("         </tr>");
             productos.forEach(p -> {
                 out.println("<tr>");
                 out.println("<td>" + p.getId() + "</td>");
                 out.println("<td>" + p.getNombre() + "</td>");
                 out.println("<td>" + p.getTipo() + "</td>");
-                out.println("<td>" + p.getPrecio() + "</td>");
+                if (cookieOptional.isPresent()) {
+                    out.println("<td>" + p.getPrecio() + "</td>");
+                }
                 out.println("</tr>");
             });
             out.println("         </table>");
+            out.println("   <a href='"+ req.getContextPath() +"/index.html' class='btn btn-primary'>Volver</a>");
             out.println("     </div>");
             out.println("     </body>");
             out.println("</html>");
