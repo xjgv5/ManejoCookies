@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
                 out.println("         <title>Hola</title>");
                 out.println("     </head>");
                 out.println("     <body>");
-                out.println("         <h1>Hola" + cookieOptional.get() + " ya has iniciado sesión anteriormente </h1>");
+                out.println("         <h1>Hola" + cookieOptional.get() + " ya has iniciado sesión con éxito </h1>");
                 out.println("        <a href='" + req.getContextPath() + "/index.html' class='btn btn-primary'>Volver</a> ");
                 out.println("     </body>");
                 out.println("</html>");
@@ -69,21 +69,7 @@ public class LoginServlet extends HttpServlet {
                 Cookie usernameCookie = new Cookie("username", username);
                 resp.addCookie(usernameCookie);
 
-                resp.setContentType("text/html;charset=UTF-8");
-                try (PrintWriter out = resp.getWriter()) {
-
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("     <head>");
-                    out.println("         <meta charset=\" UTF-8\">");
-                    out.println("         <title>Login Correcto</title>");
-                    out.println("     </head>");
-                    out.println("     <body>");
-                    out.println("         <h1>" + username + " ha iniciado sesión</h1>");
-                    out.println("        <a href='" + req.getContextPath() + "/index.html' class='btn btn-primary'>Volver</a> ");
-                    out.println("     </body>");
-                    out.println("</html>");
-                }
+                resp.sendRedirect(req.getContextPath() + "/login.html");
             } else {
                 resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No está autorizado para ingresar a esta página");
             }
