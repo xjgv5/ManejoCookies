@@ -7,25 +7,26 @@
     <title>Formulario login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-<div class="container mt-5 pt5">
+<div class="container mt-5 pt-5">
     <h1>Iniciar sesión</h1>
     <form action="/webapp-cookie/login" method="post">
-        <div class="">
-            <label for="username">Usuario</label>
-            <div>
-                <input type="text" name="username" id="username">
+        <div class="col-sm-8">
+            <label for="username" class="form-label">Usuario</label>
+            <div class="input-group mb-3">
+                <input type="text" name="username" id="username" class="form-control">
             </div>
         </div>
-        <div class="">
-            <label for="password"> Contraseña </label>
-            <div>
-                <input type="password" name="password" id="password">
+        <div class="col-sm-8">
+            <label for="password" class="form-label"> Contraseña </label>
+            <div class="input-group mb-3">
+                <input type="password" name="password" id="password" class="form-control">
             </div>
         </div>
         <div>
-            <input type="submit" value="Iniciar sesión">
+            <input type="submit" value="Iniciar sesión" class="btn btn-primary">
         </div>
     </form>
 </div>
