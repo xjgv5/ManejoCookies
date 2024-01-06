@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @WebServlet({"/login", "/login.html"})
@@ -51,27 +53,42 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if (USERNAME.equals(username) && PASSWORD.equals(password)){
+        Map<String, String> errores = new HashMap<>();
 
-            Cookie usernameCookie = new Cookie("username", username);
-            resp.addCookie(usernameCookie);
-
-            resp.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = resp.getWriter()) {
-
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("     <head>");
-                out.println("         <meta charset=\" UTF-8\">");
-                out.println("         <title>Login Correcto</title>");
-                out.println("     </head>");
-                out.println("     <body>");
-                out.println("         <h1>" + username + " ha iniciado sesión</h1>");
-                out.println("     </body>");
-                out.println("</html>");
-            }
-        } else {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No está autorizado para ingresar a esta página");
+        if(username == null || username.isBlank()){
+            errores.put("username", "El usuario no debe estar vacio");
         }
+        if (password == null || password.isBlank()){
+            errores.put("password", "Debe ingresar la contraseña");
+        }
+
+        if(errores.isEmpty()) {
+            if (USERNAME.equals(username) && PASSWORD.equals(password)) {
+
+                Cookie usernameCookie = new Cookie("username", username);
+                resp.addCookie(usernameCookie);
+
+                resp.setContentType("text/html;charset=UTF-8");
+                try (PrintWriter out = resp.getWriter()) {
+
+                    out.println("<!DOCTYPE html>");
+                    out.println("<html>");
+                    out.println("     <head>");
+                    out.println("         <meta charset=\" UTF-8\">");
+                    out.println("         <title>Login Correcto</title>");
+                    out.println("     </head>");
+                    out.println("     <body>");
+                    out.println("         <h1>" + username + " ha iniciado sesión</h1>");
+                    out.println("     </body>");
+                    out.println("</html>");
+                }
+            } else {
+                resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No está autorizado para ingresar a esta página");
+            }
+        }else {
+            req.setAttribute("errores", errores);
+            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+        }
+
     }
 }
