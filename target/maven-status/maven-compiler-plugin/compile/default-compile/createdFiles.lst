@@ -1,5 +1,6 @@
 com\xjgv\apiservlet\webapp\headers\services\ProductoService.class
 com\xjgv\apiservlet\webapp\headers\controllers\LoginServlet.class
+com\xjgv\apiservlet\webapp\headers\controllers\LogoutServlet.class
 com\xjgv\apiservlet\webapp\headers\services\LoginServiceImpl.class
 com\xjgv\apiservlet\webapp\headers\models\Producto.class
 com\xjgv\apiservlet\webapp\headers\services\ProductoServiceImpl.class

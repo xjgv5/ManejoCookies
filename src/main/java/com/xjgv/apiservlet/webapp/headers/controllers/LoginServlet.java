@@ -39,7 +39,10 @@ public class LoginServlet extends HttpServlet {
                 out.println("     </head>");
                 out.println("     <body>");
                 out.println("         <h1>Hola" + cookieOptional.get() + " ya has iniciado sesión con éxito </h1>");
-                out.println("        <a href='" + req.getContextPath() + "/index.html' class='btn btn-primary'>Volver</a> ");
+                out.println("         <div>");
+                out.println("           <a href='" + req.getContextPath() + "/index.html' class='btn btn-primary'>Volver</a> ");
+                out.println("           <a href='" + req.getContextPath() + "/logout' class='btn btn-primary'>Cerrar sesión</a> ");
+                out.println("         <div>");
                 out.println("     </body>");
                 out.println("</html>");
             }
