@@ -1,5 +1,7 @@
 package com.xjgv.apiservlet.webapp.headers.controllers;
 
+import com.xjgv.apiservlet.webapp.headers.services.LoginService;
+import com.xjgv.apiservlet.webapp.headers.services.LoginServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -22,11 +24,9 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie[] cookies = req.getCookies() != null ? req.getCookies() : new Cookie[0];
-        Optional<String> cookieOptional = Arrays.stream(cookies)
-                .filter(c -> "username".equals(c.getName()))
-                .map(Cookie::getValue)
-                .findAny();
+        LoginService auth = new LoginServiceImpl();
+        Optional<String> cookieOptional = auth.getUsername(req);
+
         if (cookieOptional.isPresent()){
             resp.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = resp.getWriter()) {
