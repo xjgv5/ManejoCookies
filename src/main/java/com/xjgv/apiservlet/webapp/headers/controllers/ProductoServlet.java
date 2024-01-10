@@ -67,7 +67,7 @@ public class ProductoServlet extends HttpServlet {
                 out.println("</tr>");
             });
             out.println("         </table>");
-            out.println("   <a href='"+ req.getContextPath() +"/index.html' class='btn btn-primary'>Volver</a>");
+            out.println("   <a href='webapp-cookie/index.html' class='btn btn-primary'>Volver</a>");
             out.println("     </div>");
             out.println("     </body>");
             out.println("</html>");

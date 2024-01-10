@@ -27,6 +27,6 @@ public class LogoutServlet extends HttpServlet {
             resp.addCookie(usernameCookie);
         }
 
-        resp.sendRedirect(getServletContext() + "/login.html");
+        resp.sendRedirect(req.getContextPath() + "/login.html");
     }
 }
